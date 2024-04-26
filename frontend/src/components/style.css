@@ -1,0 +1,57 @@
+.home {
+  background-color: ghostwhite;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home form {
+  height: 450px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+.home form div {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.home form div input{
+    width: 350px;
+    height: 45px;
+    outline: 0.05vw solid grey;
+    background-color: transparent;
+    border: 0px solid white;
+    text-align: center;
+    font-family: cursive;
+}
+.home form button{
+    width: 70%;
+    border: 0px;
+    color: ghostwhite;
+    font-family: cursive;
+    background-color: brown;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+.home h6{
+    font-size: 25px;
+    color: brown;
+    font-family: cursive;
+}
+.home p{
+    color: grey;
+    font-family: cursive;
+    font-size: 14px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.home p a{
+    color: brown;
+    font-size: 18px;
+}
