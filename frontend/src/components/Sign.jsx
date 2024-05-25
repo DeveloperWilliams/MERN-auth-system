@@ -22,6 +22,7 @@ const Sign = () => {
 
       if (response.status === 201) {
         setMessage("Signup successful! Please login.");
+        navigate("/login");
       } else {
         setMessage(response.data.error || "An error occurred during signup.");
       }
