@@ -21,7 +21,7 @@ const Sign = () => {
       const response = await axios.post("http://localhost:8080/signup", { name, email, password });
 
       if (response.status === 201) {
-        setMessage("Signup successful! Please login.");
+        setMessage("Signup successful!");
         navigate("/login");
       } else {
         setMessage(response.data.error || "An error occurred during signup.");
