@@ -6,10 +6,13 @@ import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(""); // New state for handling messages
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear any previous messages
+
     try {
       const response = await axios.post("http://localhost:8080/login", { email, password });
       const data = response.data;
@@ -17,12 +20,15 @@ const Login = () => {
       if (data === "Success") {
         navigate("/");
       } else if (data === "Incorrect") {
-        console.log("Incorrect password");
+        setMessage("Incorrect password");
+      } else if (data === "NotFound") {
+        setMessage("User not found");
       } else {
-        console.log("User not found");
+        setMessage("An error occurred during login. Please try again.");
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setMessage("An error occurred during login. Please try again.");
     }
   };
 
@@ -48,8 +54,9 @@ const Login = () => {
             />
           </div>
           <button type="submit">Login</button>
+          {message && <p className="error-message">{message}</p>} {/* Display message */}
           <p>
-            Not Having Account <Link to="/signup">Sign Up</Link>
+            Not Having Account? <Link to="/signup">Sign Up</Link>
           </p>
         </form>
       </div>
