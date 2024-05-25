@@ -1,8 +1,8 @@
-# Login System
+# <span style="color:blue">Login System</span>
 
 This is a simple login system implemented using Express.js and MongoDB, with password hashing for security.
 
-## Features
+## <span style="color:blue">Features</span>
 
 - **Signup:** Allows users to create new accounts by providing their name, email, and password.
 - **Login:** Enables registered users to log in using their email and password.
@@ -10,7 +10,7 @@ This is a simple login system implemented using Express.js and MongoDB, with pas
 - **Validation:** Validates user input for signup and login forms.
 - **Error Handling:** Provides error messages for incorrect login attempts and internal server errors.
 
-## Technologies Used
+## <span style="color:blue">Technologies Used</span>
 
 - **Express.js:** Fast, unopinionated, minimalist web framework for Node.js.
 - **MongoDB:** NoSQL database used for storing user data.
@@ -18,7 +18,7 @@ This is a simple login system implemented using Express.js and MongoDB, with pas
 - **bcrypt:** Library for hashing passwords.
 - **express-validator:** Middleware for input validation in Express.js.
 
-## Setup
+## <span style="color:blue">Setup</span>
 
 1. **Clone the Repository:**
    ```bash
@@ -41,7 +41,7 @@ This is a simple login system implemented using Express.js and MongoDB, with pas
    ```
    The application should now be running on `http://localhost:8080`.
 
-## Usage
+## <span style="color:blue">Usage</span>
 
 - **Signup:**
   - Navigate to `http://localhost:8080/signup`.
@@ -53,10 +53,10 @@ This is a simple login system implemented using Express.js and MongoDB, with pas
   - Enter your email and password in the login form.
   - Click the "Login" button to log in.
 
-## Contributing
+## <span style="color:blue">Contributing</span>
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you encounter any problems or have suggestions for improvements.
 
-## License
+## <span style="color:blue">License</span>
 
 This project is licensed under the [MIT License](LICENSE).
