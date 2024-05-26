@@ -29,6 +29,9 @@
     text-align: center;
     font-family: cursive;
 }
+.home p{
+  color: red;
+}
 .home form button{
     width: 70%;
     border: 0px;
