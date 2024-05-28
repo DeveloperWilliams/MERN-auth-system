@@ -17,11 +17,11 @@ const Login = () => {
       const response = await axios.post("http://localhost:8080/login", { email, password });
       const data = response.data;
 
-      if (data === "Success") {
+      if (data.message === "Success") {
         navigate("/");
-      } else if (data === "Incorrect") {
+      } else if (data.error === "Incorrect password") {
         setMessage("Incorrect password");
-      } else if (data === "NotFound") {
+      } else if (data.error === "User not found") {
         setMessage("User not found");
       } else {
         setMessage("An error occurred during login. Please try again.");

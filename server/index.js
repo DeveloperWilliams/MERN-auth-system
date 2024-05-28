@@ -10,20 +10,18 @@ import { body, validationResult } from "express-validator";
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
-app.use(morgan('common'));
+app.use(morgan("common"));
 
-// Rate Limiting to prevent brute-force attacks
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
 });
+
 app.use(limiter);
 
-// Connect to MongoDB
 mongoose
   .connect("mongodb://localhost:27017/login-mine", {
     useNewUrlParser: true,
@@ -35,10 +33,11 @@ mongoose
 app.post(
   "/signup",
   [
-    
     body("name").notEmpty().withMessage("Name is required"),
     body("email").isEmail().withMessage("Valid email is required"),
-    body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters long"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -63,7 +62,7 @@ app.post(
       });
 
       await newUser.save();
-      res.status(201).json({ message: "User created successfully" });
+      res.status(201).json({ message: "Signup successful!" });
     } catch (error) {
       console.error("Error during signup:", error);
       res.status(500).json({ error: "Internal Server Error" });
@@ -98,7 +97,7 @@ app.post(
         return res.status(401).json({ error: "Incorrect password" });
       }
 
-      res.json({ message: "Login successful" });
+      res.json({ message: "Success" });
     } catch (error) {
       console.error("Error during login:", error);
       res.status(500).json({ error: "Internal Server Error" });

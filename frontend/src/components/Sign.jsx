@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Sign = () => {
@@ -7,6 +7,7 @@ const Sign = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +19,15 @@ const Sign = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/signup", { name, email, password });
+      const response = await axios.post("http://localhost:8080/signup", {
+        name,
+        email,
+        password,
+      });
 
       if (response.status === 201) {
         setMessage("Signup successful!");
-        navigate("/login");
+        navigate("/login"); // Ensure you import useNavigate from react-router-dom
       } else {
         setMessage(response.data.error || "An error occurred during signup.");
       }
