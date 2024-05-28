@@ -1,3 +1,4 @@
+// frontend/src/components/Login.js
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../components/style.css";
@@ -18,7 +19,7 @@ const Login = () => {
       const data = response.data;
 
       if (data.message === "Success") {
-        navigate("/home");
+        navigate(`/home/${data.userId}`, { state: { name: data.name, email: data.email } });
       } else if (data.error === "Incorrect password") {
         setMessage("Incorrect password");
       } else if (data.error === "User not found") {

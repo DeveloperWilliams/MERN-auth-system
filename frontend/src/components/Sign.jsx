@@ -27,7 +27,7 @@ const Sign = () => {
 
       if (response.status === 201) {
         setMessage("Signup successful!");
-        navigate("/login"); // Ensure you import useNavigate from react-router-dom
+        navigate("/"); // Ensure you import useNavigate from react-router-dom
       } else {
         setMessage(response.data.error || "An error occurred during signup.");
       }
@@ -68,7 +68,7 @@ const Sign = () => {
           <button type="submit">Register</button>
           {message && <p>{message}</p>}
           <p>
-            Having Account? <Link to="/login">Login</Link>
+            Having Account? <Link to="/">Login</Link>
           </p>
         </form>
       </div>

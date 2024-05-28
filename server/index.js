@@ -1,3 +1,4 @@
+// backend/index.js
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -7,6 +8,7 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
 import { body, validationResult } from "express-validator";
+
 
 const app = express();
 
@@ -97,7 +99,7 @@ app.post(
         return res.status(401).json({ error: "Incorrect password" });
       }
 
-      res.json({ message: "Success" });
+      res.json({ message: "Success", userId: user._id, name: user.name, email: user.email });
     } catch (error) {
       console.error("Error during login:", error);
       res.status(500).json({ error: "Internal Server Error" });
