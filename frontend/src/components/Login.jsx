@@ -18,7 +18,7 @@ const Login = () => {
       const data = response.data;
 
       if (data.message === "Success") {
-        navigate("/");
+        navigate("/home");
       } else if (data.error === "Incorrect password") {
         setMessage("Incorrect password");
       } else if (data.error === "User not found") {
