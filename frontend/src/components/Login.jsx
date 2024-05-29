@@ -15,11 +15,16 @@ const Login = () => {
     setMessage(""); // Clear any previous messages
 
     try {
-      const response = await axios.post("http://localhost:8080/login", { email, password });
+      const response = await axios.post("http://localhost:8080/login", {
+        email,
+        password,
+      });
       const data = response.data;
 
       if (data.message === "Success") {
-        navigate(`/home/${data.userId}`, { state: { name: data.name, email: data.email } });
+        navigate(`/home/${data.userId}`, {
+          state: { name: data.name, email: data.email },
+        });
       } else if (data.error === "Incorrect password") {
         setMessage("Incorrect password");
       } else if (data.error === "User not found") {
@@ -55,9 +60,15 @@ const Login = () => {
             />
           </div>
           <button type="submit">Login</button>
-          {message && <p className="error-message">{message}</p>} {/* Display message */}
+          {message && <p className="error-message">{message}</p>}{" "}
+          {/* Display message */}
           <p>
             Not Having Account? <Link to="/signup">Sign Up</Link>
+          </p>
+          <p>
+            <Link to="/forgot" style={{ fontSize: "13px" }}>
+              Forgot Password
+            </Link>
           </p>
         </form>
       </div>
