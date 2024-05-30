@@ -20,7 +20,10 @@ const Forgot = () => {
         navigate(`/reset/${data.userId}`, { state: { email: data.email } });
       } else if (data.message === "User not found") {
         setMessage("Email Not Found");
-      } else {
+      } else if (data.message === "Valid email is required") {
+        setMessage("Enter a Valid Email");
+      }
+      else {
         setMessage("Something went wrong, try again");
       }
     } catch (error) {

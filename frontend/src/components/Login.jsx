@@ -1,4 +1,3 @@
-// frontend/src/components/Login.js
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../components/style.css";
@@ -7,12 +6,12 @@ import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState(""); // New state for handling messages
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Clear any previous messages
+    setMessage("");
 
     try {
       const response = await axios.post("http://localhost:8080/login", {
@@ -21,10 +20,14 @@ const Login = () => {
       });
       const data = response.data;
 
+      console.log("Login response data:", data); // Log the response data
+
       if (data.message === "Success") {
-        navigate(`/home/${data.userId}`, {
-          state: { name: data.name, email: data.email },
-        });
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("email", data.email);
+        navigate(`/home/${data.userId}`);
       } else if (data.error === "Incorrect password") {
         setMessage("Incorrect password");
       } else if (data.error === "User not found") {
@@ -60,8 +63,7 @@ const Login = () => {
             />
           </div>
           <button type="submit">Login</button>
-          {message && <p className="error-message">{message}</p>}{" "}
-          {/* Display message */}
+          {message && <p className="error-message">{message}</p>}
           <p>
             Not Having Account? <Link to="/signup">Sign Up</Link>
           </p>
