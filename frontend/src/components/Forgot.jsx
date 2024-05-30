@@ -1,4 +1,3 @@
-// frontend/Forgot.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,22 +9,26 @@ const Forgot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:8080/forgot", {
-        email,
-      });
+      const response = await axios.post("http://localhost:8080/forgot", { email });
       const data = response.data;
+      console.log("Response Data:", data);
 
       if (data.message === "success") {
         navigate(`/reset/${data.userId}`, { state: { email: data.email } });
-      }if (data.message === "Email not found") {
+      } else if (data.message === "User not found") {
         setMessage("Email Not Found");
       } else {
         setMessage("Something went wrong, try again");
       }
     } catch (error) {
-      setMessage("Something went wrong, try again");
+      if (error.response && error.response.data && error.response.data.message) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Something went wrong, try again");
+      }
     }
   };
 

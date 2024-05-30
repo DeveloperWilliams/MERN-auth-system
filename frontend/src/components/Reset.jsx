@@ -20,7 +20,7 @@ function Reset() {
       });
       const data = response.data;
 
-      if (data.message === "Success") {
+      if (data.message === "success") {
         navigate("/");
       } else {
         setMessage("Something went wrong, try again later");

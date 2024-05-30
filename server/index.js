@@ -165,7 +165,7 @@ app.put(
       user.password = hashedPassword;
       await user.save();
 
-      res.status(200).json({ message: "Success" });
+      res.status(200).json({ message: "success" });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }
