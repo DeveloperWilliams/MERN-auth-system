@@ -1,4 +1,4 @@
-# <span style="color:blue">Login System</span>
+# <span style="color:blue">Fullstack MERN Login System</span>
 
 This is a simple login system implemented using Express.js and MongoDB, with password hashing for security.
 
