@@ -1,27 +1,25 @@
-// frontend/Reset.js
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Reset() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const { email } = location.state;
+  const { token } = useParams(); // Retrieve token from URL params
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.put("http://localhost:8080/reset", {
-        email,
+        token, // Send token with request
         password,
       });
       const data = response.data;
 
       if (data.message === "success") {
-        navigate("/");
+        navigate("/login");
       } else {
         setMessage("Something went wrong, try again later");
       }
