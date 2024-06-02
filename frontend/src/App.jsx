@@ -23,9 +23,8 @@ const App = () => {
           path='/home/:id' 
           element={isAuthenticated() ? <Home /> : <Navigate to='/' />} 
         />
-        <Route path='/reset/:id' element={<Reset />} />
+        <Route path='/reset/:token' element={<Reset />} /> {/* Use token parameter */}
         <Route path='/forgot' element={<Forgot />} />
-        <Route path='/reset' element={<Reset />} />
         <Route path='/*' element={<Notfound />} />
       </Routes>
     </>

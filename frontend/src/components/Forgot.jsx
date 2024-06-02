@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom";
 
 const Forgot = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [resetLink, setResetLink] = useState(""); // For displaying the reset link
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
+    setResetLink(""); // Reset the reset link
 
     try {
-      const response = await axios.post("http://localhost:8080/forgot", { email });
+      const response = await axios.post("http://localhost:8080/forgot", {
+        email,
+      });
       const data = response.data;
 
       if (data.message === "success") {
         setMessage("Password reset link sent to your email");
+        setResetLink(`http://localhost:3000/reset/${data.token}`); // Set the reset link
       } else if (data.message === "User not found") {
         setMessage("Email Not Found");
       } else if (data.message === "Valid email is required") {
@@ -25,7 +29,11 @@ const Forgot = () => {
         setMessage("Something went wrong, try again");
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setMessage(error.response.data.message);
       } else {
         setMessage("Something went wrong, try again");
@@ -46,6 +54,7 @@ const Forgot = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           {message && <p>{message}</p>}
+          // Display the reset link
           <button type="submit" style={{ width: "98%" }}>
             Submit
           </button>

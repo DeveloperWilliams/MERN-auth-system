@@ -38,8 +38,8 @@ const RESET_SECRET_KEY = "your_reset_secret_key"; // Separate secret key for pas
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "archywilliams2@gmail.com",
-    pass: "kfsr ntuc uzkg wnen",
+    user: "",
+    pass: "",
   },
 });
 
@@ -148,6 +148,8 @@ app.post(
   }
 );
 
+// Forgot password endpoint in backend
+// Backend forgot password endpoint
 app.post(
   "/forgot",
   [body("email").isEmail().withMessage("Valid email is required")],
@@ -184,8 +186,7 @@ app.post(
           console.log("Email sent:", info.response);
           return res.json({
             message: "success",
-            userId: user._id,
-            email: user.email,
+            token: resetToken,  // Include token in the response for testing
           });
         }
       });
@@ -196,6 +197,8 @@ app.post(
   }
 );
 
+
+// /reset endpoint in backend
 app.put(
   "/reset",
   [
@@ -207,29 +210,34 @@ app.put(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log("Validation errors:", errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
 
     const { token, password } = req.body;
 
     try {
-      const decoded = jwt.verify(token, RESET_SECRET_KEY); // Verify the token
-      console.log("Decoded token:", decoded); // Log the decoded token
-
-      const user = await UserModel.findById(decoded.userId); // Find the user by ID
-      console.log("User found:", user); // Log the user found
+      const decoded = jwt.verify(token, RESET_SECRET_KEY);
+      console.log("Decoded token:", decoded);
+      const user = await UserModel.findById(decoded.userId);
+      console.log("User found:", user);
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10); // Hash the new password
+      const hashedPassword = await bcrypt.hash(password, 10);
       user.password = hashedPassword;
-      await user.save(); // Save the new password
+      await user.save();
 
-      res.json({ message: "success" }); // Respond with success
+      res.json({ message: "Password reset successful" });
     } catch (error) {
       console.error("Error during reset password:", error);
+      if (error.name === "TokenExpiredError") {
+        return res.status(400).json({ message: "Token has expired" });
+      } else if (error.name === "JsonWebTokenError") {
+        return res.status(400).json({ message: "Invalid token" });
+      }
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
